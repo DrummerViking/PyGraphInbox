@@ -1,15 +1,9 @@
-﻿from asyncore import ExitNow
-import configparser
+﻿import configparser
 import os
 import sys
-from azure.identity import (
-    InteractiveBrowserCredential,
-    ClientSecretCredential,
-    DeviceCodeCredential,
-)
+from azure.identity import InteractiveBrowserCredential, ClientSecretCredential, DeviceCodeCredential
 from configparser import SectionProxy
 from msgraph.core import GraphClient
-
 
 class Graph:
     settings: SectionProxy
@@ -67,7 +61,6 @@ class Graph:
             inbox_response = self.user_client.get(request_url)
         return inbox_response.json()
 
-
 if __name__ == "__main__":
     # Load settings
     config = configparser.ConfigParser()
@@ -83,7 +76,9 @@ if __name__ == "__main__":
     graph: Graph = Graph(azure_settings)
     # get email messages
     # checking if users file list exists in config file
-    if "userslistfilename" in list(azure_settings.keys()):
+    if len(sys.argv) > 1:
+        users_list = sys.argv[1].split(",")
+    elif "userslistfilename" in list(azure_settings.keys()):
         users_file = os.path.join(BASE_DIR, azure_settings["userslistfilename"])
         if os.path.exists(users_file):
             with open(users_file, "r") as f:
@@ -93,11 +88,8 @@ if __name__ == "__main__":
             print("Users list file: '{0}' does not exists.".format(azure_settings["userslistfilename"]))
             raise FileNotFoundError
     else:
-        if len(sys.argv) > 1:
-            users_list = sys.argv[1].split(",")
-        else:
-            print("No users file, nor email addresses as arguments passed.")
-            exit()
+        print("No users file, nor email addresses as arguments passed.")
+        exit()
     for user in users_list:
         print(f"Getting messages for mailbox {user}: ")
         message_page = graph.get_inbox(user)

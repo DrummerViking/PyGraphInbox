@@ -23,7 +23,7 @@ Python.exe inbox.py
 ```
 it will read the config file, and lookup for the userslistfilename file to fetch the list of mailboxes.  
 <br>
-If the line 'userslistfilename' in the config file does not exists, you can pass the email addresses as arguments:  
+You can pass the email addresses as arguments:  
 ```powershell
 Python.exe inbox.py "user1@contoso.com"
 ```
@@ -31,3 +31,4 @@ or even:
 ```powershell
 Python.exe inbox.py "user1@contoso.com","user2@contoso.com"
 ```
+> Passing addresses as arguments, will take precedence even if the line 'userslistfilename' in the config file exists.
