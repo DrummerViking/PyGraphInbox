@@ -18,16 +18,16 @@ Messages are pulled from the inbox of the users.
 
 In my testing I used Windows.  
 You can open Command Prompt or Powershell and run:  
-```python
+```powershell
 Python.exe inbox.py  
 ```
 it will read the config file, and lookup for the userslistfilename file to fetch the list of mailboxes.  
 <br>
 If the line 'userslistfilename' in the config file does not exists, you can pass the email addresses as arguments:  
-```python
+```powershell
 Python.exe inbox.py "user1@contoso.com"
 ```
 or even:  
-```python
+```powershell
 Python.exe inbox.py "user1@contoso.com","user2@contoso.com"
 ```
