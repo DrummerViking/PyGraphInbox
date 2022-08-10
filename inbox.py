@@ -1,4 +1,5 @@
-﻿import configparser
+﻿from asyncore import ExitNow
+import configparser
 import os
 import sys
 from azure.identity import (
@@ -92,7 +93,11 @@ if __name__ == "__main__":
             print("Users list file: '{0}' does not exists.".format(azure_settings["userslistfilename"]))
             raise FileNotFoundError
     else:
-        users_list = sys.argv[1].split(",")
+        if len(sys.argv) > 1:
+            users_list = sys.argv[1].split(",")
+        else:
+            print("No users file, nor email addresses as arguments passed.")
+            exit()
     for user in users_list:
         print(f"Getting messages for mailbox {user}: ")
         message_page = graph.get_inbox(user)
