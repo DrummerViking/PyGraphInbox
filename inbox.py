@@ -66,11 +66,17 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     this_file_path = os.path.abspath(__name__)
     BASE_DIR = os.path.dirname(this_file_path)
-    config_file = os.path.join(BASE_DIR, "config.cfg")
-    if not os.path.exists(config_file):
-        print(f"{config_file} does not exists.")
-        raise FileNotFoundError
-    config.read(config_file)
+    config_file = os.path.join(BASE_DIR, "config-dev.cfg")
+    if os.path.exists(config_file):
+        print(f"Using {config_file}")
+        config.read(config_file)
+    else:
+        config_file = os.path.join(BASE_DIR, "config.cfg")
+        if not os.path.exists(config_file):
+            print(f"{config_file} does not exists.")
+            raise FileNotFoundError
+        print(f"Using {config_file}")
+        config.read(config_file)
     azure_settings = config["Azure"]
     # create graph object
     graph: Graph = Graph(azure_settings)

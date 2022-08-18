@@ -11,6 +11,7 @@ Messages are pulled from the inbox of the users.
 |Requirements.txt | Requirements file listing required modules to be installed in order to run the script. |  
 | users.txt | Txt file with the list of primary smtp addresses of the mailboxes the script will work on. |
 | config.cfg | Config file. Required lines are:<br>**ClientID**<br>**TenantID**<br>**ClientSecret**<br>**authtenant**<br>**userslistfilename**<br> |
+| config-dev.cfg | A replica of config.cfg file. If exists it will override the config.cfg file. It is listed in the gitignore file, so it should not be pulled to your repository |
 - _Note that the last line of the config.cfg file, references the text file with the list of email addresses. You can modify this line to map to a different file name._  
 - _You need to have an Azure App registered. If you want to know how to create the app, you can follow these [steps.](https://docs.microsoft.com/en-us/graph/tutorials/python?tabs=aad&tutorial-step=7)_  
 
